@@ -9,7 +9,7 @@ db_config = {
     'port': 12823, # Notice we added the port here because it's not the default 3306!
     'user': 'avnadmin',
     'password': 'AVNS_QUPIQMLjGC62nlL1vHD', # Put the password you just found
-    'database': 'defaultdb'
+    'database': 'stocks2'
 }
 
 @app.route('/')
