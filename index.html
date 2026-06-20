@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+        }
+        .form-container, .table-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        h2, h3 {
+            margin-top: 0;
+            color: #333333;
+            text-align: center;
+        }
+        h2 { margin-bottom: 24px; }
+        h3 { margin-bottom: 15px; border-bottom: 2px solid #f4f6f9; padding-bottom: 10px; }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #666666;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #004085; }
+        
+        .message {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: green;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f1f3f5;
+        }
+        .no-data {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Inventory Data Entry</h2>
+        
+        {% if message %}
+            <div class="message">{{ message }}</div>
+        {% endif %}
+
+        <form action="/add_item" method="POST">
+            <div class="form-group">
+                <label for="part_no">Part Number</label>
+                <input type="text" id="part_no" name="part_no" placeholder="e.g., 16D0-516" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="part_name">Part Name</label>
+                <input type="text" id="part_name" name="part_name" placeholder="e.g., Screw" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="qty">Quantity</label>
+                <input type="number" id="qty" name="qty" placeholder="e.g., 5000" required>
+            </div>
+            
+            <button type="submit">Submit to Database</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <h3>Current Stock Status</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Part Number</th>
+                    <th>Part Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if inventory %}
+                    {% for item in inventory %}
+                    <tr>
+                        <td>{{ item.Part_No }}</td>
+                        <td>{{ item.Part_Name }}</td>
+                        <td>{{ item.Qty }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="no-data">No items found in stock database.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
