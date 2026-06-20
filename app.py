@@ -5,10 +5,11 @@ app = Flask(__name__)
 
 # MySQL Database Configuration
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'NAVEENPPC',  # Replace with your actual MySQL password
-    'database': 'stock2'
+    'host': 'mysql-2c08e112-nifsppc2024-80e8.i.aivencloud.com',
+    'port': 12823, # Notice we added the port here because it's not the default 3306!
+    'user': 'avnadmin',
+    'password': 'AVNS_QUPIQMLjGC62nlL1vHD', # Put the password you just found
+    'database': 'defaultdb'
 }
 
 @app.route('/')
